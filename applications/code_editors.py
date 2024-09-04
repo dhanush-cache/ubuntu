@@ -5,7 +5,7 @@ from installers.vscode import VSCodeExtension
 
 
 def install_vscode():
-    url = "https://code.visualstudio.com/sha/download"
+    url = "https://code.visualstudio.com/download"
     params = {"build": "stable", "os": "linux-deb-x64"}
     APTInstaller.install_deb("code", url, params)
 

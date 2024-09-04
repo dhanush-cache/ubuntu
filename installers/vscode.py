@@ -75,8 +75,8 @@ class VSCodeExtension(Installer):
         self.install(file.name)
 
     def install(self, package: str, force=False) -> None:
-        print("Installing:", package)
         """Install a package."""
+        print("Installing:", package)
         result = self._run(["code", "--install-extension", package])
         if result.returncode != 0 or force:
             self.manual_install(package)
@@ -86,7 +86,7 @@ class VSCodeExtension(Installer):
         self._run_with_check(["code", "--uninstall-extension", package])
 
     def check(self, *packages) -> bool:
-        extensions.unlink()
+        extensions.unlink(missing_ok=True)
         return super().check(*packages)
 
 

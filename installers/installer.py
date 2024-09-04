@@ -9,13 +9,12 @@ class UnresolvedDependenciesError(Exception):
 class Installer(ABC):
 
     def __init__(self, *packages, force: bool = False) -> None:
-        if not packages:
+        if not packages or self.check(*packages):
             return
         self.resolve(*packages, force=force)
         if not self.check(*packages):
-            raise UnresolvedDependenciesError(
-                "Dependencies were not resolved successfully!"
-            )
+            message = "Dependencies were not resolved successfully!"
+            raise UnresolvedDependenciesError(message)
 
     @staticmethod
     def _run(command: list) -> subprocess.CompletedProcess:

@@ -29,8 +29,6 @@ def install_neovim():
     src = Path(target.name) / "nvim-linux64"
     target = Path(f"/opt/nvim-linux64")
     subprocess.run(["sudo", "mv", str(src), str(target)])
-    path = f"$PATH:/opt/nvim-linux64/bin"
-    ohmyzsh.add_env("PATH", path)
 
 
 def configure_neovim():
@@ -40,6 +38,8 @@ def configure_neovim():
     git.clone(url, path, shallow=True)
     command = [str(binary), "--headless", "-c", "q"]
     subprocess.run(command)
+    path = f"$PATH:/opt/nvim-linux64/bin"
+    ohmyzsh.add_env("PATH", path)
 
 
 def main():
