@@ -2,7 +2,7 @@ from applications.console.fzf import install_fzf
 from applications.console.zsh import p10k, ohmyzsh
 from config import HOME
 from installers.apt import APTInstaller
-from utils import git
+from utils import git, environment
 
 
 def main():
@@ -28,7 +28,8 @@ def main():
     git.clone(url, path, shallow=True)
     ohmyzsh.add_plugin("zsh-syntax-highlighting")
 
-    ohmyzsh.add_config("source ~/.profile")
+    path = HOME / ".local" / "bin"
+    environment.add_path(path)
 
     install_fzf()
     APTInstaller("tree", "stow")

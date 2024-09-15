@@ -5,10 +5,9 @@ from tempfile import NamedTemporaryFile, TemporaryDirectory
 
 import requests
 
-from applications.console.zsh import ohmyzsh
 from config import HOME
 from installers.apt import APTInstaller
-from utils import git
+from utils import git, environment
 
 binary = Path("/opt/nvim-linux64/bin/nvim")
 
@@ -38,8 +37,8 @@ def configure_neovim():
     git.clone(url, path, shallow=True)
     command = [str(binary), "--headless", "-c", "q"]
     subprocess.run(command)
-    path = f"$PATH:/opt/nvim-linux64/bin"
-    ohmyzsh.add_env("PATH", path)
+    path = Path("/opt/nvim-linux64/bin")
+    environment.add_path(path)
 
 
 def main():

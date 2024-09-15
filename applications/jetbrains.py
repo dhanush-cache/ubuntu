@@ -6,9 +6,9 @@ from tempfile import NamedTemporaryFile, TemporaryDirectory
 
 import requests
 
-from applications.console.zsh import ohmyzsh
 from config import HOME
 from installers.apt import APTInstaller
+from utils import environment
 
 APTInstaller(
     "libfuse2t64",
@@ -43,8 +43,8 @@ def get_toolbox_url() -> str:
 def install_toolbox() -> None:
     if not is_installed():
         __install()
-    scripts_path = f"$PATH:{HOME}/.local/share/JetBrains/Toolbox/scripts"
-    ohmyzsh.add_env("PATH", scripts_path)
+    scripts_path = HOME / ".local" / "share" / "JetBrains" / "Toolbox" / "scripts"
+    environment.add_path(scripts_path)
 
 
 def __install():
