@@ -1,9 +1,11 @@
 import style
+import theme
 from applications import code_editors, mysql, firefox
 from applications.console import alacritty, terminal, tmux, neovim, pip_config
 
 
 def main():
+    theme.main()
     alacritty.main()
     terminal.main()
     pip_config.main()
