@@ -81,7 +81,7 @@ Categories=Network;WebBrowser;
     if target.exists() and target.read_text() == entry:
         return
 
-    target.parent.mkdir(parents=True, exist_ok=True)
+    subprocess.run(["sudo", "mkdir", "-p", target.parent], check=True)
     file = NamedTemporaryFile(suffix=".desktop")
     Path(file.name).write_text(entry)
     command = ["sudo", "mv", file.name, str(target)]
