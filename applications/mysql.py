@@ -42,16 +42,14 @@ def get_workbench_url() -> str:
 
 def main():
     package_name = "mysql-apt-config"
-    if APTInstaller().is_installed(package_name):
-        return
-    url = get_apt_config_url()
-    APTInstaller.install_deb(package_name, url)
+    if not APTInstaller().is_installed(package_name):
+        url = get_apt_config_url()
+        APTInstaller.install_deb(package_name, url)
 
     package_name = "mysql-workbench-community"
-    if APTInstaller().is_installed(package_name):
-        return
-    url = get_workbench_url()
-    APTInstaller.install_deb(package_name, url)
+    if not APTInstaller().is_installed(package_name):
+        url = get_workbench_url()
+        APTInstaller.install_deb(package_name, url)
 
     APTInstaller("mysql-server")
 

@@ -52,9 +52,10 @@ class APTInstaller(Installer):
             return
         if params is None:
             params = {}
-        file = NamedTemporaryFile(suffix=".deb")
+        file = NamedTemporaryFile("wb", suffix=".deb", delete=False)
         with requests.get(url, params=params, stream=True) as response:
             for chunk in response.iter_content(chunk_size=8192):
                 file.write(chunk)
+        file.close()
         APTInstaller().install(file.name)
         APTInstaller().update()
