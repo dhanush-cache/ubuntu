@@ -67,11 +67,14 @@ def create_profile(profile_name):
     subprocess.run(command)
 
 
-def create_desktop_entry(name: str, binary_name: str):
+def create_desktop_entry(name: str, binary_name: str, add_profile=False):
     profile = binary_name
+    command = f"{binary_name}"
+    args = f" --no-remote -P {profile}" if add_profile else ""
+    command += args
     entry = f"""[Desktop Entry]
 Name={name}
-Exec={binary_name} --no-remote -P {profile}
+Exec={command}
 Icon=/opt/{binary_name}/browser/chrome/icons/default/default128.png
 Type=Application
 Categories=Network;WebBrowser;
@@ -93,7 +96,7 @@ def main():
     binary = "firefox"
     name = "Firefox"
     install(product, binary)
-    create_profile(binary)
+    # create_profile(binary)
     create_desktop_entry(name, binary)
 
     product = "firefox-devedition-latest-ssl"
@@ -101,7 +104,7 @@ def main():
     name = "Firefox Developer Edition"
     install(product, binary)
     create_profile(binary)
-    create_desktop_entry(name, binary)
+    create_desktop_entry(name, binary, add_profile=True)
 
 
 if __name__ == "__main__":
