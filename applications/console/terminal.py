@@ -1,4 +1,5 @@
 from applications.console.fzf import install_fzf
+from applications.console.zellij import install_zellij
 from applications.console.zsh import p10k, ohmyzsh
 from config import HOME
 from installers.apt import APTInstaller
@@ -31,6 +32,7 @@ def main():
     path = HOME / ".local" / "bin"
     environment.add_path(path)
 
+    install_zellij()
     install_fzf()
     APTInstaller("tree", "stow")
 
